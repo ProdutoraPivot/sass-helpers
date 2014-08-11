@@ -1,0 +1,386 @@
+/**
+ * @usage:
+ *   @include breakpoint(large) {
+ *      width: 60%;
+ *   }
+ *   @include breakpoint(medium) {
+ *      width: 80%;
+ *   }
+ *   @include breakpoint(small) {
+ *     width: 95%;
+ *   }
+ */
+@mixin breakpoint($point) {
+    @if $point == large {
+        @media (min-width: 64.375em) {
+            @content;
+        }
+    }
+    @else if $point == medium {
+        @media (min-width: 50em) {
+            @content;
+        }
+    }
+    @else if $point == small {
+        @media (min-width: 37.5em) {
+            @content;
+        }
+    }
+}
+
+/**
+ * @usage:
+ *   @include keyframes(slide-down) {
+ *      0% { opacity: 1; }
+ *      90% { opacity: 0; }
+ *   }
+ */
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes $animation-name { // WebKit browsers
+        @content;
+    }
+    @-moz-keyframes $animation-name { // Mozilla Firefox
+        @content;
+    }
+    @-ms-keyframes $animation-name { // Internet Explorer
+        @content;
+    }
+    @-o-keyframes $animation-name { // Opera
+        @content;
+    }
+    @keyframes $animation-name { // Default
+        @content;
+    }
+}
+
+/**
+ * @usage:
+ *   @include placeholder() {
+ *      color: #ccc;
+ *      font-style: italic;
+ *   }
+ */
+@mixin placeholder() {
+    ::-webkit-input-placeholder { // WebKit browsers
+        @content;
+    }
+    :-moz-placeholder { // Mozilla Firefox 4 to 18
+        @content;
+    }
+    ::-moz-placeholder { // Mozilla Firefox 19+
+        @content;
+    }
+    :-ms-input-placeholder { // Internet Explorer 10+
+        @content;
+    }
+}
+
+// @usage: @include transition(color .3s ease);
+@mixin transition($rest...) {
+    -webkit-transition: $rest;
+    -moz-transition: $rest;
+    -ms-transition: $rest;
+    -o-transition: $rest;
+    transition: $rest;
+}
+
+// @usage: @include transition(color .3s ease);
+@mixin transition-function($rest...) {
+    -webkit-transition-timing-function: $rest;
+    -webkit-transition-timing-function: $rest;
+    -moz-transition-timing-function: $rest;
+    -o-transition-timing-function: $rest;
+    transition-timing-function: $rest;
+}
+
+// @usage: @include transition(color .3s ease);
+@mixin transform($rest...) {
+    -webkit-transform: $rest;
+    -moz-transform: $rest;
+    -ms-transform: $rest;
+    -o-transform: $rest;
+    transform: $rest;
+}
+
+
+// @usage: @include animation('slide-down 5s 3');
+@mixin animation($str) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
+
+// @usage: @include animation('slide-down 5s 3');
+@mixin box-shadow($str) {
+    -webkit-box-shadow: #{$str};
+    -moz-box-shadow: #{$str};
+    -ms-box-shadow: #{$str};
+    -o-box-shadow: #{$str};
+    box-shadow: #{$str};
+}
+
+// @usage: @include image-2x("logo2x.png", 100px, 25px);
+@mixin image-2x($image, $width, $height) {
+    @media (min--moz-device-pixel-ratio: 1.3),
+    (-o-min-device-pixel-ratio: 2.6/2),
+    (-webkit-min-device-pixel-ratio: 1.3),
+    (min-device-pixel-ratio: 1.3),
+    (min-resolution: 1.3dppx) {
+        // On retina, use image that's scaled by 2
+        background-image: url($image);
+        background-size: $width $height;
+    }
+}
+
+// @usage: @include background-cover(url.htc);
+@mixin background-cover($url) {
+    background-size: cover;
+    -ms-behavior: url($url);
+}
+
+// @usage: @include flipH;
+@mixin flipH() {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+// @usage: @include flipV;
+@mixin flipV() {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+
+// @usage: @include box-sizing(border-box);
+@mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model; // Safari <= 5
+    -moz-box-sizing: $box-model; // Firefox <= 19
+    box-sizing: $box-model;
+}
+
+// @usage: @include opacity(0.8);
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); // IE8
+}
+
+// @usage: font-size: calculateRem(pixels);
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
+}
+
+// @usage: @include font-size(14px)
+@mixin font-size($size: 12px) {
+    font-size: $size; // Fallback for old browsers
+    font-size: calculateRem($size);
+}
+
+// @usage: @include position(absolute, 13px 51px auto auto);
+@mixin position($shorthand, $offsets: null) {
+    @if $shorthand != null {
+        @if $shorthand == "s" or $shorthand == "stc" or $shorthand == "static" {
+            position: static;
+        } @else if $shorthand == "r" or $shorthand == "rel" or $shorthand == "relative" {
+            position: relative;
+        } @else if $shorthand == "a" or $shorthand == "abs" or $shorthand == "absolute" {
+            position: absolute;
+        } @else if $shorthand == "f" or $shorthand == "fix" or $shorthand == "fixed" {
+            position: fixed;
+        } @else {
+            @debug "position accepts 's, sta, r, rel, a, ab, f, fix, static, relative, absolute, fixed' as shorthands";
+        }
+    }
+    @if length($offsets) == 1 {
+        $positionProperty: top, right, bottom, left;
+        @if $offsets != none {
+            @each $property in $positionProperty {#{$property}: $offsets; }
+        }
+    } @else if length($offsets) == 2 {
+        @if nth($offsets, 1) != none {
+            top: nth($offsets, 1);
+            bottom: nth($offsets, 1);
+        }
+        @if nth($offsets, 2) != none {
+            right: nth($offsets, 2);
+            left: nth($offsets, 2);
+        }
+    } @else if length($offsets) == 3 {
+        @if nth($offsets, 1) != none {
+            top: nth($offsets, 1);
+        }
+        @if nth($offsets, 2) != none {
+            right: nth($offsets, 2);
+            left: nth($offsets, 2);
+        }
+        @if nth($offsets, 3) != none {
+            bottom: nth($offsets, 3);
+        }
+    } @else if length($offsets) == 4 {
+        @if nth($offsets, 1) != none {
+            top: nth($offsets, 1);
+        }
+        @if nth($offsets, 2) != none {
+            right: nth($offsets, 2);
+        }
+        @if nth($offsets, 3) != none {
+            bottom: nth($offsets, 3);
+        }
+        @if nth($offsets, 4) != none {
+            left: nth($offsets, 4);
+        }
+    }
+}
+
+// @usage: @include static(13px 51px auto auto);
+@mixin static($args: none) {
+    @include position(static, $args);
+}
+
+// @usage: @include absolute(13px 51px auto auto);
+@mixin absolute($args: none) {
+    @include position(absolute, $args);
+}
+
+// @usage: @include fixed(13px 51px auto auto);
+@mixin fixed($args: none) {
+    @include position(fixed, $args);
+}
+
+// @usage: @include relative(13px 51px auto auto);
+@mixin relative($args: none) {
+    @include position(relative, $args);
+}
+
+// @usage: @include size(170px, 59px)
+@mixin size($width: null, $height: null) {
+    @if $width != null or $width != none {
+        width: $width;
+    }
+    @if $height != null or $height != none {
+        height: $height;
+    }
+}
+
+// @usage: @include min-size(170px, 59px)
+@mixin min-size($width: null, $height: null) {
+    @if $width != null or $width != none {
+        min-width: $width;
+    }
+    @if $height != null or $height != none {
+        min-height: $height;
+    }
+}
+
+// @usage: @include max-size(170px, 59px)
+@mixin max-size($width: null, $height: null) {
+    @if $width != null or $width != none {
+        max-width: $width;
+    }
+    @if $height != null or $height != none {
+        max-height: $height;
+    }
+}
+
+
+// @usage: @include selection-color(transparent);
+@mixin selection() {
+    ::selection {
+         @content;
+    }
+    ::-moz-selection {
+         @content;
+    }
+    ::-webkit-selection {
+         @content;
+    }
+}
+// @usage: @include bg-img('cat.png');
+@mixin bg-img($img) {
+    @include size(image-width($img), image-height($img));
+    @if variable-exists(images-dir) {
+        background: transparent url("#{$images-dir}/"+$img) no-repeat 0 0;
+    } @else {
+        background: transparent url("../images/"+$img) no-repeat 0 0;
+    }
+}
+
+// @usage: @include user-select(none | text | all | element);
+@mixin user-select($value: none) {
+    -webkit-touch-callout: $value; // All touch based
+    -webkit-user-select: $value; // Chrome all / Safari all
+    -khtml-user-select: $value; // Konqueror
+    -moz-user-select: $value; // Firefox all
+    -ms-user-select: $value; // IE 10+
+    -o-user-select: $value; // No support for these yet.
+    user-select: $value; // No support for these yet.
+}
+
+// @usage: @include line-height(14px)
+@mixin line-height($size: 12px) {
+    line-height: $size; // Fallback for old browsers
+    line-height: calculateRem($size);
+}
+
+// @usage: @include hide-text;
+@mixin hide-text {
+    overflow: hidden;
+    text-indent: -999em;
+}
+
+
+@mixin zoom($value: 1) {
+    $zoom: $value * 100;
+    -ms-zoom: $value;
+    -ms-transform-origin: 0 0;
+    -moz-transform: scale($value);
+    -moz-transform-origin: 0px #{$zoom}px;
+    -o-transform: scale($value);
+    -o-transform-origin: 0px #{$zoom}px;
+    -webkit-transform: scale($value);
+    -webkit-transform-origin: 0 0;
+}
+
+
+// @usage: @extend %visuallyhidden;
+%visuallyhidden {
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip: rect(0,0,0,0);
+    position: absolute;
+}
+
+// @usage: @extend %fix;
+%fix {
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.visually-hidden {
+    @extend %visuallyhidden;
+}
+
+.fix {
+    @extend %fix;
+}

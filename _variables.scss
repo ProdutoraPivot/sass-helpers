@@ -1,0 +1,90 @@
+// URLs
+// ----
+
+$vendors-dir: "../../scripts/vendors";
+$images-dir: "../images";
+$fonts-dir: "fonts";
+
+// Pollyfills
+// ----------
+
+$background-size-htc: "../../webroot/developer/scripts/vendors/background-size-polyfill/backgroundsize.min.htc";
+$pie-htc: "developer/scripts/vendors/pie/pie.htc";
+
+// Colors
+// ------
+// * colors name founded in http://chir.ag/projects/name-that-color/
+
+// Verde
+$java: #21BBBE;
+$eastern-blue: #129BB0;
+
+// Roxo
+$moonRaker: #F2EAFA;
+$bossanova: #573271;
+$affair: #644382;
+$perfume: #E7CFFC;
+$eminence: #562974;
+$mauve: #deb7fc;
+$mischka: #e0d9e5;
+$wisteria: #9e71bd;
+
+// Tons de Cinza
+$gray: #939393;
+
+// Others
+// ------
+
+// Extra small screen / phone: (mobile portrait)
+$screen-xs-min: 1px !default;
+
+// Small screen / tablet: (mobile landscape)
+$screen-sm-min: 568px !default;
+
+// Medium screen / desktop
+$screen-md-min: 768px !default;
+
+// Large screen / desktop
+$screen-de-min: 1000px !default;
+
+// Large screen / wide desktop
+$screen-lg-min: 1270px !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max: ($screen-sm-min - 1) !default;
+$screen-sm-max: ($screen-md-min - 1) !default;
+$screen-md-max: ($screen-de-min - 1) !default;
+$screen-de-max: ($screen-lg-min - 1) !default;
+$screen-lg-max: (1400px - 1) !default;
+
+// Imagens
+// -------
+
+// Base
+$transparent: "#{$images-dir}/transparent.png";
+
+// Header
+$logo: "#{$images-dir}/motion/logo-minha-havaianas.gif";
+$pezinho: "#{$images-dir}/header/pezinho.png";
+
+// Modal
+$overlay-pattern: "#{$images-dir}/overlay-pattern.png";
+$icon-video: "#{$images-dir}/icon-video.png";
+$photo-send: "#{$images-dir}/photo-send.png";
+$loading: "#{$images-dir}/loading.gif";
+$check: "#{$images-dir}/check.png";
+
+// Buttons
+$close-button: "#{$images-dir}/close-button.png";
+$product-arrows: "#{$images-dir}/product-arrows.png";
+$celebrity-arrows: "#{$images-dir}/celebrity-arrows.png";
+$celebrity-arrows-bg: "#{$images-dir}/celebrity-arrows-bg.png";
+$btn-next-celebrity: "#{$images-dir}/btn-next-celebrity.png";
+$btn-buy-bg: "#{$images-dir}/btn-buy-bg.png";
+$social: "#{$images-dir}/social.png";
+
+// Icons
+$sprite-icons: "#{$images-dir}/sprite-icons.png";
+
+//Fonts
+$font-lucida: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
